@@ -15,24 +15,10 @@ app.get('/index', (req, res) => {
 app.get('/constituencies', (req,res)=>{
     res.render('constituencies')
 })
-app.get('/schools', (req,res)=>{
-    res.render('schools')
-})
 app.get('/roads', (req,res)=>{
     res.render('roads')
 })
-app.get('/settlements', (req,res)=>{
-    res.render('settlements')
-})
-app.get('/health', (req,res)=>{
-    res.render('health')
-})
-app.get('/protected', (req,res)=>{
-    res.render('protected')
-})
-app.get('/trial', (req,res)=>{
-    res.render('trial')
-})
+
 
 
 

@@ -13,15 +13,11 @@
             <a href="index">Nairobi County</a>
             <a href="constituencies">Constituencies</a>
             <a href="roads">Roads</a>
-            <a href="schools">Schools</a>
-            <a href="settlements">Settlements</a>
-            <a href="health">Health Facilities</a>
-            <a href="protected">Protected Areas</a>
 
         </nav>
     </div>
     <div class="titles">
-        <h3>Major Roads in Nairobi </h3>
+        <h3>Nairobi Roads</h3>
     </div>
     <div id="map" style="height: 100vh;width: 100%;">
 
@@ -33,29 +29,98 @@
 
         <script>
             //Define some constants like map center, the basemap url (we are using openstreetmap)
-            let details = {
-                coordinates: {
-                    y: -1.286389,
-                    x: 36.817223,
-                },
-                url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                attribution:
-                    'Open Steet Map',
-            };
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                });
 
-            // initialize a map object
-            map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 18); // initialize map view
 
-            //load the basemap
-            L.tileLayer(details.url, {
-                attribution: details.attribution,
-                apikey: "",
-            }).addTo(map);
+            var Aintreeestate = L.marker([-1.20000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Arboretum = L.marker([-1.27000000000, 36.80000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athibasin = L.marker([-1.40000000000, 36.90000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiplain = L.marker([-1.42000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriver = L.marker([-1.45000000000, 36.98000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriverprison = L.marker([-1.47000000000, 36.95000000000]).bindPopup('This is Crown Hill Park.'),
+                    Baboonescarpment = L.marker([-1.40000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Bahati = L.marker([-1.28000000000, 36.85000000000]).bindPopup('This is Crown Hill Park.'),
+                    Beaconranch = L.marker([-1.40000000000, 36.93000000000]).bindPopup('This is Crown Hill Park.');
 
-            //Style for line data
+            var settlements = L.layerGroup([Aintreeestate, Arboretum, Athibasin, Athiplain, Athiriver, Athiriverprison, Baboonescarpment, Bahati, Beaconranch]);
+
+            var RuiruSec = L.marker([-1.149, 36.960]).bindPopup('RUIRU SEC SCH.'),
+                RuiruGirls = L.marker([-1.146, 36.947]).bindPopup('RUIRU GIRLS SEC SCH.'),
+                RuiriStar = L.marker([-1.164, 36.955]).bindPopup('RUIRU STAR SEC SCH.'),
+                Githunguri = L.marker([-1.155, 36.939]).bindPopup('GITHUNGURI SEC  SCH.'),
+                GateWay = L.marker([-1.168, 36.955]).bindPopup('GATE WAY SEC SHC.'),
+                Blessed = L.marker([-1.206, 36.919]).bindPopup('BLESSED HEART HIGH SCH.'),
+                Kimbo = L.marker([-1.208, 36.927]).bindPopup('KIMBO MIXED HIGH SCH.'),
+                OurLady = L.marker([-1.203, 36.939]).bindPopup('OUR LADY OF FATIMA SEC SCH.'),
+                Benedict = L.marker([-1.210, 36.938]).bindPopup('ST BENEDICTS MIXED HIGH SCH.'),
+                GithuraiMixed = L.marker([-1.203, 36.946]).bindPopup('GITHURAI MIXED SEC SCH.'),
+                GREENVILLE = L.marker([-1.209, 36.939]).bindPopup('GREENVILLE HIGH SCH.'),
+                REERIA = L.marker([-1.205, 36.960]).bindPopup('REERIA SEC SCH.'),
+                STLUCIE = L.marker([-1.217, 36.968]).bindPopup('ST LUCIE KIRIRI GIRLS SEC SCH.'),
+                BEROIAH = L.marker([-1.216, 36.928]).bindPopup('BEROIAH HIGH SCH.'),
+                PROGRESSIVE= L.marker([-1.212, 36.927]).bindPopup('PROGRESSIVE GIRLS HIGH SCH.'),
+                GITHURAICBH = L.marker([-1.210, 36.922]).bindPopup('GITHURAI CBH SEC SCH.'),
+                KAHAWA = L.marker([-1.191, 36.935]).bindPopup('KAHAWA SUKARI SEC SCH.'),
+                BLESSED = L.marker([-1.206, 36.919]).bindPopup('BLESSED HANDS HIGH SCH GITHURAI.'),
+                MtHoreb = L.marker([-1.213, 36.922]).bindPopup('RUIRU GIRLS SEC SCH.'),
+                Loreto = L.marker([-1.167, 36.800]).bindPopup('RUIRU STAR SEC SCH.'),
+                Kanunga = L.marker([-1.168, 36.783]).bindPopup('GITHUNGURI SEC  SCH.'),
+                Stjoseph = L.marker([-1.189, 36.790]).bindPopup('GATE WAY SEC SHC.'),
+                Muongoiya = L.marker([-1.193, 36.787]).bindPopup('BLESSED HEART HIGH SCH.'),
+                Professor = L.marker([-1.194, 36.747]).bindPopup('KIMBO MIXED HIGH SCH.'),
+                PeterHinga = L.marker([-1.205, 36.774]).bindPopup('OUR LADY OF FATIMA SEC SCH.'),
+                Gacharage = L.marker([-1.206, 36.764]).bindPopup('ST BENEDICTS MIXED HIGH SCH.'),
+                Gachie = L.marker([-1.214, 36.766]).bindPopup('GITHURAI MIXED SEC SCH.'),
+                AckKihara = L.marker([-1.206, 36.739]).bindPopup('GREENVILLE HIGH SCH.'),
+                Wangunyu = L.marker([-1.197, 36.735]).bindPopup('REERIA SEC SCH.'),
+                Springboard = L.marker([-1.251, 36.706]).bindPopup('ST LUCIE KIRIRI GIRLS SEC SCH.'),
+                StPetersBo = L.marker([-1.259, 36.713]).bindPopup('BEROIAH HIGH SCH.'),
+                Uthiru = L.marker([-1.260, 36.714]).bindPopup('PROGRESSIVE GIRLS HIGH SCH.'),
+                Fort = L.marker([-1.254, 36.720]).bindPopup('GITHURAI CBH SEC SCH.'),
+                Muthiga = L.marker([-1.255, 36.688]).bindPopup('KAHAWA SUKARI SEC SCH.'),
+                PceaRungiri = L.marker([-1.242, 36.675]).bindPopup('BLESSED HANDS HIGH SCH GITHURAI.');
+            var schools = L.layerGroup([RuiruSec, RuiruGirls, RuiriStar, Githunguri, GateWay, Blessed, Kimbo, OurLady, Benedict, GithuraiMixed,
+        GREENVILLE, REERIA, STLUCIE, BEROIAH, PROGRESSIVE, GITHURAICBH, KAHAWA, BLESSED, MtHoreb, Loreto, Kanunga, Stjoseph, Muongoiya, Professor, PeterHinga,
+    Gacharage, Gachie, AckKihara, Wangunyu, Springboard, StPetersBo, Uthiru, Fort, Muthiga, PceaRungiri]);
+
+            var Gathanga = L.marker([-1.18231200000, 36.79123400000]).bindPopup('Gathanga Dispensary.'),
+                    Karia = L.marker([-1.17421300000, 36.82123000000]).bindPopup('Karia Dispensary.'),
+                    Karura = L.marker([-1.22000000000, 36.78000000000]).bindPopup('Karura SDA Dispensary.'),
+                    Kihara = L.marker([-1.21091000000, 36.73860000000]).bindPopup('Kihara Health Centre.'),
+                    Little = L.marker([-1.19235500000, 36.77152500000]).bindPopup('Little Servant Of Sacret Heart Dispensary.'),
+                    Kikuyu = L.marker([-1.26667000000, 36.66670000000]).bindPopup('P.C.E.A. Kikuyu Hospital.'),
+                    Uthiru = L.marker([-1.25260000000, 36.70860000000]).bindPopup('Uthiru Dispensary.'),
+                    Wangige = L.marker([-1.21737000000, 36.72610000000]).bindPopup('Wangige Health Centre.'),
+                    Ongata = L.marker([-1.40735000000, 36.75140000000]).bindPopup('Ongata Rongai Health Centre.');
+
+            var health = L.layerGroup([Gathanga, Karia, Karura, Kihara, Little, Kikuyu, Uthiru, Wangige, Ongata]);
+
+            var map = L.map('map', {
+                    center: [-1.2921, 36.8219],
+                    zoom: 10,
+                    layers: [osm, schools]
+                });
+
+            var baseMaps = {
+                    "OpenStreetMap": osm,
+                };
+
+            var overlayMaps = {
+                    "Schools": schools
+                };
+            
+            var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+            
+            layerControl.addOverlay(settlements, "Settlements");
+            // layerControl.addOverlay(schools, "Schools");
+            layerControl.addOverlay(health, "Health Facilities");
+            
             let RoadStyle = {
                 "color": "red",
-                "weight": 4,
+                "weight": 2,
                 "opacity": 0.65
             }
             displayData('WebMap:NairobiCountyMajorRoads', RoadStyle)
@@ -67,8 +132,14 @@
                 "opacity": 1,
                 "fillOpacity": 0
             }
- 
+            let ConstituencyStyle = {
+                "color": "brown",
+                "weight": 5,
+                "opacity": 1,
+                "fillOpacity": 0
+            }
             displayData('WebMap:NairobiCounty', PolygonStyle)
+            displayData('', ConstituencyStyle)
 
             //style for point data
             let PointStyle = {
