@@ -33,26 +33,78 @@
 
         <script>
             //Define some constants like map center, the basemap url (we are using openstreetmap)
-            let details = {
-                coordinates: {
-                    y: -1.286389,
-                    x: 36.817223,
-                },
-                url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                attribution:
-                    'Open Steet Map',
-            };
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                });
 
-            // initialize a map object
-            map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 18); // initialize map view
+            var littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
+                denver = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
+                aurora = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
+                golden = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
 
-            //load the basemap
-            L.tileLayer(details.url, {
-                attribution: details.attribution,
-                apikey: "",
-            }).addTo(map);
+            var cities = L.layerGroup([littleton, denver, aurora, golden]);
 
-            //Style for line data
+            var crownHill = L.marker([39.75, -105.09]).bindPopup('This is Crown Hill Park.'),
+                    rubyHill = L.marker([39.68, -105.00]).bindPopup('This is Ruby Hill Park.');
+            var parks = L.layerGroup([crownHill, rubyHill]);
+
+            var Aintreeestate = L.marker([-1.20000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Arboretum = L.marker([-1.27000000000, 36.80000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athibasin = L.marker([-1.40000000000, 36.90000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiplain = L.marker([-1.42000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriver = L.marker([-1.45000000000, 36.98000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriverprison = L.marker([-1.47000000000, 36.95000000000]).bindPopup('This is Crown Hill Park.'),
+                    Baboonescarpment = L.marker([-1.40000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Bahati = L.marker([-1.28000000000, 36.85000000000]).bindPopup('This is Crown Hill Park.'),
+                    Beaconranch = L.marker([-1.40000000000, 36.93000000000]).bindPopup('This is Crown Hill Park.');
+
+            var settlements = L.layerGroup([Aintreeestate, Arboretum, Athibasin, Athiplain, Athiriver, Athiriverprison, Baboonescarpment, Bahati, Beaconranch]);
+
+            var Aintreeestate = L.marker([-1.20000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Arboretum = L.marker([-1.27000000000, 36.80000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athibasin = L.marker([-1.40000000000, 36.90000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiplain = L.marker([-1.42000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriver = L.marker([-1.45000000000, 36.98000000000]).bindPopup('This is Crown Hill Park.'),
+                    Athiriverprison = L.marker([-1.47000000000, 36.95000000000]).bindPopup('This is Crown Hill Park.'),
+                    Baboonescarpment = L.marker([-1.40000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                    Bahati = L.marker([-1.28000000000, 36.85000000000]).bindPopup('This is Crown Hill Park.'),
+                    Beaconranch = L.marker([-1.40000000000, 36.93000000000]).bindPopup('This is Crown Hill Park.');
+
+            var schools = L.layerGroup([Aintreeestate, Arboretum, Athibasin, Athiplain, Athiriver, Athiriverprison, Baboonescarpment, Bahati, Beaconranch]);
+
+            var Gathanga = L.marker([-1.18231200000, 36.79123400000]).bindPopup('Gathanga Dispensary.'),
+                    Karia = L.marker([-1.17421300000, 36.82123000000]).bindPopup('Karia Dispensary.'),
+                    Karura = L.marker([-1.22000000000, 36.78000000000]).bindPopup('Karura SDA Dispensary.'),
+                    Kihara = L.marker([-1.21091000000, 36.73860000000]).bindPopup('Kihara Health Centre.'),
+                    Little = L.marker([-1.19235500000, 36.77152500000]).bindPopup('Little Servant Of Sacret Heart Dispensary.'),
+                    Kikuyu = L.marker([-1.26667000000, 36.66670000000]).bindPopup('P.C.E.A. Kikuyu Hospital.'),
+                    Uthiru = L.marker([-1.25260000000, 36.70860000000]).bindPopup('Uthiru Dispensary.'),
+                    Wangige = L.marker([-1.21737000000, 36.72610000000]).bindPopup('Wangige Health Centre.'),
+                    Ongata = L.marker([-1.40735000000, 36.75140000000]).bindPopup('Ongata Rongai Health Centre.');
+
+            var health = L.layerGroup([Gathanga, Karia, Karura, Kihara, Little, Kikuyu, Uthiru, Wangige, Ongata]);
+
+            var map = L.map('map', {
+                    center: [-1.2921, 36.8219],
+                    zoom: 10,
+                    layers: [osm, cities]
+                });
+
+            var baseMaps = {
+                    "OpenStreetMap": osm,
+                };
+
+            var overlayMaps = {
+                    "Cities": cities
+                };
+            
+            var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+            layerControl.addOverlay(parks, "Parks");
+            layerControl.addOverlay(settlements, "Settlements");
+            layerControl.addOverlay(schools, "Schools");
+            layerControl.addOverlay(health, "Health Facilities");
+            
             let RoadStyle = {
                 "color": "red",
                 "weight": 2,

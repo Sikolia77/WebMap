@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+    <title>Combined</title>
+</head>
+<body>
+    <div class="information">
+        <nav>
+            <a href="index">Nairobi County</a>
+            <a href="constituencies">Constituencies</a>
+            <a href="roads">Roads</a>
+            <a href="schools">Schools</a>
+            <a href="settlements">Settlements</a>
+            <a href="health">Health Facilities</a>
+            <a href="protected">Protected Areas</a>
+            <a href="trial">Map Trial</a>
+        </nav>
+    </div>
+
+    <div id="map" style="height: 100vh;width: 100%;"></div>
+
+    <script>
+        // var map = L.map('map').setView([51.505, -0.09], 13);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //         maxZoom: 19,
+        //         attribution: '© OpenStreetMap'
+        //     }).addTo(map);
+
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            });
+        
+        var littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
+                denver = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
+                aurora = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
+                golden = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
+
+        var cities = L.layerGroup([littleton, denver, aurora, golden]);
+        var crownHill = L.marker([39.75, -105.09]).bindPopup('This is Crown Hill Park.'),
+                rubyHill = L.marker([39.68, -105.00]).bindPopup('This is Ruby Hill Park.');
+
+        var parks = L.layerGroup([crownHill, rubyHill]);
+
+        let PointStyle = {
+                radius: 8,
+                fillColor: "#ff7800",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+
+
+
+        var map = L.map('map', {
+                center: [39.73, -104.99], 
+                zoom: 10,
+                layers: [osm, cities]
+            });
+        var baseMaps = {
+                "OpenStreetMap": osm,
+            };
+
+        var overlayMaps = {
+                "Cities": cities
+            };
+
+        
+        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+        layerControl.addOverlay(parks, "Parks");
+        layerControl.addOverlay(nairobi, "Nairobi");
+
+
+        let PolygonStyle = {
+            "color": "black",
+            "weight": 5,
+            "opacity": 1,
+            "fillOpacity": 0
+        }
+        displayData('WebMap:NairobiCounty', PolygonStyle)
+
+
+        //function that waits for the data to be fetched from GeoServer
+        function displayData(layername, style) {
+                //this functions waits for the data to be loaded and displays it on a map
+                $.when(addWFSLayer(layername)).done(data => {
+                    let layer = L.geoJSON(data, {
+                        style: style
+                    }).addTo(map);
+                    //fits the map to layer
+                    map.fitBounds(layer.getBounds())
+                })
+            }
+
+        //function that fetches data from GeoServer
+        async function addWFSLayer(typename) {
+                var response = await $.ajax({
+                    url: `http://demo.osl.co.ke/geoserver/${typename.split(':')[0]}/wfs?request=GetFeature&version=1.0.0&typeName=${typename}&outputFormat=json`,
+                    dataType: "json",
+                    success: console.log(`${typename.split(':')[1]} loaded succesfully`),
+                    error: function (xhr) {
+                        console.log(xhr)
+                    }
+                })
+                return response
+            }
+        
+    </script>
+    
+</body>
+</html>

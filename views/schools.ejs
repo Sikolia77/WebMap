@@ -44,7 +44,12 @@
             };
 
             // initialize a map object
-            map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 15); // initialize map view
+            var map = L.map('map', {
+                    center: [39.73, -104.99],
+                    zoom: 10,
+                    layers: [osm, cities]
+                });
+            // map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 15); // initialize map view
 
             //load the basemap
             L.tileLayer(details.url, {

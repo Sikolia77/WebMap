@@ -30,6 +30,9 @@ app.get('/health', (req,res)=>{
 app.get('/protected', (req,res)=>{
     res.render('protected')
 })
+app.get('/trial', (req,res)=>{
+    res.render('trial')
+})
 
 
 
