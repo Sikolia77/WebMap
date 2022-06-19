@@ -1,10 +1,12 @@
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <title>Kenya Data WebMap</title>
 </head>
+
 <body>
     <div class="information">
         <nav>
@@ -15,122 +17,166 @@
             <a href="settlements">Settlements</a>
             <a href="health">Health Facilities</a>
             <a href="protected">Protected Areas</a>
-            <a href="trial">Map Trial</a>
+
         </nav>
     </div>
     <div class="titles">
-        <h3>Nairobi County Extends with Forests</h3>
+        <h3>Nairobi County</h3>
     </div>
     <div id="map" style="height: 100vh;width: 100%;">
-        
-    <!-- REQUIRED - leaflet js link  -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- REQUIRED jquery link  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- REQUIRED - leaflet js link  -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <!-- REQUIRED jquery link  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-    <script>
-        //Define some constants like map center, the basemap url (we are using openstreetmap)
-        let details = {
-            coordinates: {
-                y: -1.286389,
-                x: 36.817223,
-            },
-            url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            attribution:
-                'Open Steet Map',
-        };
+        <script>
+            //Define some constants like map center, the basemap url (we are using openstreetmap)
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            });
 
-        // initialize a map object
-        map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 15); // initialize map view
+            
 
-        //load the basemap
-        L.tileLayer(details.url, {
-            attribution: details.attribution,
-            apikey: "",
-        }).addTo(map);
+            var Aintreeestate = L.marker([-1.20000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Arboretum = L.marker([-1.27000000000, 36.80000000000]).bindPopup('This is Crown Hill Park.'),
+                Athibasin = L.marker([-1.40000000000, 36.90000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiplain = L.marker([-1.42000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiriver = L.marker([-1.45000000000, 36.98000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiriverprison = L.marker([-1.47000000000, 36.95000000000]).bindPopup('This is Crown Hill Park.'),
+                Baboonescarpment = L.marker([-1.40000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Bahati = L.marker([-1.28000000000, 36.85000000000]).bindPopup('This is Crown Hill Park.'),
+                Beaconranch = L.marker([-1.40000000000, 36.93000000000]).bindPopup('This is Crown Hill Park.');
 
-        //Style for line data
-        let RoadStyle = {
-            "color": "red",
-            "weight": 2,
-            "opacity": 0.65
-        }
-        displayData('', RoadStyle)
+            var settlements = L.layerGroup([Aintreeestate, Arboretum, Athibasin, Athiplain, Athiriver, Athiriverprison, Baboonescarpment, Bahati, Beaconranch]);
 
-        //style for polygon data
-        let PolygonStyle = {
-            "color": "black",
-            "weight": 5,
-            "opacity": 1,
-            "fillOpacity": 0
-        }
-        let ForestStyle = {
-            "color": "green",
-            "weight": 5,
-            "opacity": 1,
-            "fillOpacity": 0
-        }
-        displayData('WebMap:NairobiCounty', PolygonStyle)
-        displayData('WebMap:NairobiForest', ForestStyle)
-       
-        //style for point data
-        let PointStyle = {
-            radius: 8,
-            fillColor: "#ff7800",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        };
+            var Aintreeestate = L.marker([-1.20000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Arboretum = L.marker([-1.27000000000, 36.80000000000]).bindPopup('This is Crown Hill Park.'),
+                Athibasin = L.marker([-1.40000000000, 36.90000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiplain = L.marker([-1.42000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiriver = L.marker([-1.45000000000, 36.98000000000]).bindPopup('This is Crown Hill Park.'),
+                Athiriverprison = L.marker([-1.47000000000, 36.95000000000]).bindPopup('This is Crown Hill Park.'),
+                Baboonescarpment = L.marker([-1.40000000000, 36.88000000000]).bindPopup('This is Crown Hill Park.'),
+                Bahati = L.marker([-1.28000000000, 36.85000000000]).bindPopup('This is Crown Hill Park.'),
+                Beaconranch = L.marker([-1.40000000000, 36.93000000000]).bindPopup('This is Crown Hill Park.');
 
-        displayData('', PointStyle)
-        // //load vector data from geoserver
+            var schools = L.layerGroup([Aintreeestate, Arboretum, Athibasin, Athiplain, Athiriver, Athiriverprison, Baboonescarpment, Bahati, Beaconranch]);
+
+            var Gathanga = L.marker([-1.18231200000, 36.79123400000]).bindPopup('Gathanga Dispensary.'),
+                Karia = L.marker([-1.17421300000, 36.82123000000]).bindPopup('Karia Dispensary.'),
+                Karura = L.marker([-1.22000000000, 36.78000000000]).bindPopup('Karura SDA Dispensary.'),
+                Kihara = L.marker([-1.21091000000, 36.73860000000]).bindPopup('Kihara Health Centre.'),
+                Little = L.marker([-1.19235500000, 36.77152500000]).bindPopup('Little Servant Of Sacret Heart Dispensary.'),
+                Kikuyu = L.marker([-1.26667000000, 36.66670000000]).bindPopup('P.C.E.A. Kikuyu Hospital.'),
+                Uthiru = L.marker([-1.25260000000, 36.70860000000]).bindPopup('Uthiru Dispensary.'),
+                Wangige = L.marker([-1.21737000000, 36.72610000000]).bindPopup('Wangige Health Centre.'),
+                Ongata = L.marker([-1.40735000000, 36.75140000000]).bindPopup('Ongata Rongai Health Centre.');
+
+            var health = L.layerGroup([Gathanga, Karia, Karura, Kihara, Little, Kikuyu, Uthiru, Wangige, Ongata]);
+
+            var map = L.map('map', {
+                center: [-1.2921, 36.8219],
+                zoom: 10,
+                layers: [osm, settlements]
+            });
+
+            var baseMaps = {
+                "OpenStreetMap": osm,
+            };
+
+            var overlayMaps = {
+                "Settlements": settlements
+            };
+
+            var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+            
+            // layerControl.addOverlay(settlements, "Settlements");
+            layerControl.addOverlay(schools, "Schools");
+            layerControl.addOverlay(health, "Health Facilities");
+
+            let RoadStyle = {
+                "color": "red",
+                "weight": 2,
+                "opacity": 0.65
+            }
+            displayData('', RoadStyle)
+
+            //style for polygon data
+            let PolygonStyle = {
+                "color": "black",
+                "weight": 5,
+                "opacity": 1,
+                "fillOpacity": 0
+            }
+            let ConstituencyStyle = {
+                "color": "brown",
+                "weight": 5,
+                "opacity": 1,
+                "fillOpacity": 0
+            }
+            displayData('WebMap:', PolygonStyle)
+            displayData('WebMap:NairobiConstituencies', ConstituencyStyle)
+
+            //style for point data
+            let PointStyle = {
+                radius: 8,
+                fillColor: "#ff7800",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+
+            displayData('', PointStyle)
+            // //load vector data from geoserver
 
 
-        // //DO NOT MODIFY THIS FUNCTION
-        // // a function that waits for the data to be fetched and displays it on the map
-        function displayPointData(layername, style) {
-            //this functions waits for the data to be loaded and displays it on a map
-            $.when(addWFSLayer(layername)).done(data => {
-                let layer = L.geoJSON(data, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(data, style);
+            // //DO NOT MODIFY THIS FUNCTION
+            // // a function that waits for the data to be fetched and displays it on the map
+            function displayPointData(layername, style) {
+                //this functions waits for the data to be loaded and displays it on a map
+                $.when(addWFSLayer(layername)).done(data => {
+                    let layer = L.geoJSON(data, {
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(data, style);
+                        }
+                    }).addTo(map);
+                    //fits the map to layer
+                    map.fitBounds(layer.getBounds())
+                })
+            }
+
+            // //DO NOT MODIFY THIS FUNCTION
+            // // a function that waits for the data to be fetched and displays it on the map
+            function displayData(layername, style) {
+                //this functions waits for the data to be loaded and displays it on a map
+                $.when(addWFSLayer(layername)).done(data => {
+                    let layer = L.geoJSON(data, {
+                        style: style
+                    }).addTo(map);
+                    //fits the map to layer
+                    map.fitBounds(layer.getBounds())
+                })
+            }
+            // //DO NOT MODIFY THIS FUNCTION
+            // //a function that fetches data from geoserver
+            async function addWFSLayer(typename) {
+                var response = await $.ajax({
+                    url: `http://demo.osl.co.ke/geoserver/${typename.split(':')[0]}/wfs?request=GetFeature&version=1.0.0&typeName=${typename}&outputFormat=json`,
+                    dataType: "json",
+                    success: console.log(`${typename.split(':')[1]} loaded succesfully`),
+                    error: function (xhr) {
+                        console.log(xhr)
                     }
-                }).addTo(map);
-                //fits the map to layer
-                map.fitBounds(layer.getBounds())
-            })
-        }
+                })
+                return response
+            }
 
-        // //DO NOT MODIFY THIS FUNCTION
-        // // a function that waits for the data to be fetched and displays it on the map
-        function displayData(layername, style) {
-            //this functions waits for the data to be loaded and displays it on a map
-            $.when(addWFSLayer(layername)).done(data => {
-                let layer = L.geoJSON(data, {
-                    style: style
-                }).addTo(map);
-                //fits the map to layer
-                map.fitBounds(layer.getBounds())
-            })
-        }
-        // //DO NOT MODIFY THIS FUNCTION
-        // //a function that fetches data from geoserver
-        async function addWFSLayer(typename) {
-            var response = await $.ajax({
-                url: `http://demo.osl.co.ke/geoserver/${typename.split(':')[0]}/wfs?request=GetFeature&version=1.0.0&typeName=${typename}&outputFormat=json`,
-                dataType: "json",
-                success: console.log(`${typename.split(':')[1]} loaded succesfully`),
-                error: function (xhr) {
-                    console.log(xhr)
-                }
-            })
-            return response
-        }
-
-    </script>
+        </script>
     </div>
-    
+
 </body>
+
 </html>
