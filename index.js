@@ -15,10 +15,12 @@ app.get('/index', (req, res) => {
 app.get('/constituencies', (req,res)=>{
     res.render('constituencies')
 })
+app.get('/protected', (req,res)=>{
+    res.render('protected')
+})
 app.get('/roads', (req,res)=>{
     res.render('roads')
 })
-
 
 
 

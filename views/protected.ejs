@@ -1,8 +1,8 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <title>Kenya Data WebMap</title>
 </head>
@@ -12,53 +12,109 @@
         <nav>
             <a href="index">Nairobi County</a>
             <a href="constituencies">Constituencies</a>
-            <a href="roads">Roads</a>
-            <a href="schools">Schools</a>
-            <a href="settlements">Settlements</a>
-            <a href="health">Health Facilities</a>
             <a href="protected">Protected Areas</a>
-
+            <a href="roads">Roads</a>
         </nav>
     </div>
     <div class="titles">
-        <h3>Protected Areas in Nairobi</h3>
+        <h3>Nairobi Roads</h3>
     </div>
-    <div id="map" style="height: 100vh;width: 100%;">
-
+    <div id="map" style="height: 100vh; width: 100%">
         <!-- REQUIRED - leaflet js link  -->
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <!-- REQUIRED jquery link  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
         <script>
             //Define some constants like map center, the basemap url (we are using openstreetmap)
-            let details = {
-                coordinates: {
-                    y: -1.286389,
-                    x: 36.817223,
-                },
-                url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                attribution:
-                    'Open Steet Map',
+            var osm = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+                    maxZoom: 19,
+                    attribution: "© OpenStreetMap",
+                }
+            );
+
+            //load some dummy special schools
+            var RuiruSec = L.marker([-1.149, 36.96]).bindPopup("RUIRU SEC SCH."),
+                RuiruGirls = L.marker([-1.146, 36.947]).bindPopup(
+                    "RUIRU GIRLS SEC SCH."
+                ),
+                RuiriStar = L.marker([-1.164, 36.955]).bindPopup(
+                    "RUIRU STAR SEC SCH."
+                );
+
+            var specialschools = L.layerGroup([
+                RuiruSec,
+                RuiruGirls,
+                RuiriStar,
+            ]);
+
+            //load prtected areas
+            var protecteddata = (
+                $.ajax({
+                    url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiProtectedAreas&outputFormat=json`,
+                    dataType: "json",
+                    success: console.log("protected areas loaded"),
+                })
+            );
+
+            //this functions waits for protected areas to be loaded and displays it on a map
+            $.when(protecteddata).done((data) => {
+                let protected = L.geoJSON(data, {
+                })
+                layerControl.addOverlay(protected, "Protected Areas");
+            });
+
+            //load forestes
+            var forestsdata = (
+                $.ajax({
+                    url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiForest&outputFormat=json`,
+                    dataType: "json",
+                    success: console.log("forests loaded"),
+                })
+            );
+
+            //this functions waits for forests to be loaded and displays it on a map
+            $.when(forestsdata).done((data) => {
+                let forests = L.geoJSON(data, {
+                })
+                layerControl.addOverlay(forests, "Forests");
+            });
+
+            //load settlements
+            var settlementsdata = (
+                $.ajax({
+                    url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiSettlement&outputFormat=json`,
+                    dataType: "json",
+                    success: console.log("settlements loaded"),
+                })
+            );
+
+            //this functions waits for settlements to be loaded and displays it on a map
+            $.when(settlementsdata).done((data) => {
+                let settlements = L.geoJSON(data, {
+                })
+                layerControl.addOverlay(settlements, "Settlements");
+            });
+
+            //GROUP BASEMAP AND FIRST LAYER TO MAP
+
+            var map = L.map("map", {
+                center: [-1.2921, 36.8219],
+                zoom: 10,
+                layers: [osm, specialschools],
+            });
+
+            var baseMaps = {
+                OpenStreetMap: osm,
             };
 
-            // initialize a map object
-            map = L.map("map").setView([details.coordinates.y, details.coordinates.x], 18); // initialize map view
+            var overlayMaps = {
+                "Special Schools": specialschools,
+            };
 
-            //load the basemap
-            L.tileLayer(details.url, {
-                attribution: details.attribution,
-                apikey: "",
-            }).addTo(map);
-
-            //Style for line data
-            let RoadStyle = {
-                "color": "red",
-                "weight": 2,
-                "opacity": 0.65
-            }
-            displayData('', RoadStyle)
+            var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 
             //style for polygon data
             let PolygonStyle = {
@@ -67,45 +123,8 @@
                 "opacity": 1,
                 "fillOpacity": 0
             }
-            let ConstituencyStyle = {
-                "color": "orange",
-                "weight": 5,
-                "opacity": 1,
-                "fillOpacity": 0
-            }
             displayData('WebMap:NairobiCounty', PolygonStyle)
-            displayData('WebMap:NairobiProtectedAreas', ConstituencyStyle)
 
-            //style for point data
-            let PointStyle = {
-                radius: 8,
-                fillColor: "#ff7800",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            };
-
-            displayData('', PointStyle)
-            // //load vector data from geoserver
-
-
-            // //DO NOT MODIFY THIS FUNCTION
-            // // a function that waits for the data to be fetched and displays it on the map
-            function displayPointData(layername, style) {
-                //this functions waits for the data to be loaded and displays it on a map
-                $.when(addWFSLayer(layername)).done(data => {
-                    let layer = L.geoJSON(data, {
-                        pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(data, style);
-                        }
-                    }).addTo(map);
-                    //fits the map to layer
-                    map.fitBounds(layer.getBounds())
-                })
-            }
-
-            // //DO NOT MODIFY THIS FUNCTION
             // // a function that waits for the data to be fetched and displays it on the map
             function displayData(layername, style) {
                 //this functions waits for the data to be loaded and displays it on a map
@@ -133,7 +152,6 @@
 
         </script>
     </div>
-
 </body>
 
 </html>

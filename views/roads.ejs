@@ -17,6 +17,7 @@
       <nav>
         <a href="index">Nairobi County</a>
         <a href="constituencies">Constituencies</a>
+        <a href="protected">Protected Areas</a>
         <a href="roads">Roads</a>
       </nav>
     </div>
@@ -39,324 +40,107 @@
           }
         );
 
-        var Aintreeestate = L.marker([-1.2, 36.88]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Arboretum = L.marker([-1.27, 36.8]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Athibasin = L.marker([-1.4, 36.9]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Athiplain = L.marker([-1.42, 36.88]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Athiriver = L.marker([-1.45, 36.98]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Athiriverprison = L.marker([-1.47, 36.95]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Baboonescarpment = L.marker([-1.4, 36.88]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Bahati = L.marker([-1.28, 36.85]).bindPopup(
-            "This is Crown Hill Park."
-          ),
-          Beaconranch = L.marker([-1.4, 36.93]).bindPopup(
-            "This is Crown Hill Park."
-          );
-
-        var settlements = L.layerGroup([
-          Aintreeestate,
-          Arboretum,
-          Athibasin,
-          Athiplain,
-          Athiriver,
-          Athiriverprison,
-          Baboonescarpment,
-          Bahati,
-          Beaconranch,
-        ]);
-
+        //load some dummy special schools
         var RuiruSec = L.marker([-1.149, 36.96]).bindPopup("RUIRU SEC SCH."),
           RuiruGirls = L.marker([-1.146, 36.947]).bindPopup(
             "RUIRU GIRLS SEC SCH."
           ),
           RuiriStar = L.marker([-1.164, 36.955]).bindPopup(
             "RUIRU STAR SEC SCH."
-          ),
-          Githunguri = L.marker([-1.155, 36.939]).bindPopup(
-            "GITHUNGURI SEC  SCH."
-          ),
-          GateWay = L.marker([-1.168, 36.955]).bindPopup("GATE WAY SEC SHC."),
-          Blessed = L.marker([-1.206, 36.919]).bindPopup(
-            "BLESSED HEART HIGH SCH."
-          ),
-          Kimbo = L.marker([-1.208, 36.927]).bindPopup("KIMBO MIXED HIGH SCH."),
-          OurLady = L.marker([-1.203, 36.939]).bindPopup(
-            "OUR LADY OF FATIMA SEC SCH."
-          ),
-          Benedict = L.marker([-1.21, 36.938]).bindPopup(
-            "ST BENEDICTS MIXED HIGH SCH."
-          ),
-          GithuraiMixed = L.marker([-1.203, 36.946]).bindPopup(
-            "GITHURAI MIXED SEC SCH."
-          ),
-          GREENVILLE = L.marker([-1.209, 36.939]).bindPopup(
-            "GREENVILLE HIGH SCH."
-          ),
-          REERIA = L.marker([-1.205, 36.96]).bindPopup("REERIA SEC SCH."),
-          STLUCIE = L.marker([-1.217, 36.968]).bindPopup(
-            "ST LUCIE KIRIRI GIRLS SEC SCH."
-          ),
-          BEROIAH = L.marker([-1.216, 36.928]).bindPopup("BEROIAH HIGH SCH."),
-          PROGRESSIVE = L.marker([-1.212, 36.927]).bindPopup(
-            "PROGRESSIVE GIRLS HIGH SCH."
-          ),
-          GITHURAICBH = L.marker([-1.21, 36.922]).bindPopup(
-            "GITHURAI CBH SEC SCH."
-          ),
-          KAHAWA = L.marker([-1.191, 36.935]).bindPopup(
-            "KAHAWA SUKARI SEC SCH."
-          ),
-          BLESSED = L.marker([-1.206, 36.919]).bindPopup(
-            "BLESSED HANDS HIGH SCH GITHURAI."
-          ),
-          MtHoreb = L.marker([-1.213, 36.922]).bindPopup(
-            "RUIRU GIRLS SEC SCH."
-          ),
-          Loreto = L.marker([-1.167, 36.8]).bindPopup("RUIRU STAR SEC SCH."),
-          Kanunga = L.marker([-1.168, 36.783]).bindPopup(
-            "GITHUNGURI SEC  SCH."
-          ),
-          Stjoseph = L.marker([-1.189, 36.79]).bindPopup("GATE WAY SEC SHC."),
-          Muongoiya = L.marker([-1.193, 36.787]).bindPopup(
-            "BLESSED HEART HIGH SCH."
-          ),
-          Professor = L.marker([-1.194, 36.747]).bindPopup(
-            "KIMBO MIXED HIGH SCH."
-          ),
-          PeterHinga = L.marker([-1.205, 36.774]).bindPopup(
-            "OUR LADY OF FATIMA SEC SCH."
-          ),
-          Gacharage = L.marker([-1.206, 36.764]).bindPopup(
-            "ST BENEDICTS MIXED HIGH SCH."
-          ),
-          Gachie = L.marker([-1.214, 36.766]).bindPopup(
-            "GITHURAI MIXED SEC SCH."
-          ),
-          AckKihara = L.marker([-1.206, 36.739]).bindPopup(
-            "GREENVILLE HIGH SCH."
-          ),
-          Wangunyu = L.marker([-1.197, 36.735]).bindPopup("REERIA SEC SCH."),
-          Springboard = L.marker([-1.251, 36.706]).bindPopup(
-            "ST LUCIE KIRIRI GIRLS SEC SCH."
-          ),
-          StPetersBo = L.marker([-1.259, 36.713]).bindPopup(
-            "BEROIAH HIGH SCH."
-          ),
-          Uthiru = L.marker([-1.26, 36.714]).bindPopup(
-            "PROGRESSIVE GIRLS HIGH SCH."
-          ),
-          Fort = L.marker([-1.254, 36.72]).bindPopup("GITHURAI CBH SEC SCH."),
-          Muthiga = L.marker([-1.255, 36.688]).bindPopup(
-            "KAHAWA SUKARI SEC SCH."
-          ),
-          PceaRungiri = L.marker([-1.242, 36.675]).bindPopup(
-            "BLESSED HANDS HIGH SCH GITHURAI."
           );
-        var schools = L.layerGroup([
+
+        var specialschools = L.layerGroup([
           RuiruSec,
           RuiruGirls,
           RuiriStar,
-          Githunguri,
-          GateWay,
-          Blessed,
-          Kimbo,
-          OurLady,
-          Benedict,
-          GithuraiMixed,
-          GREENVILLE,
-          REERIA,
-          STLUCIE,
-          BEROIAH,
-          PROGRESSIVE,
-          GITHURAICBH,
-          KAHAWA,
-          BLESSED,
-          MtHoreb,
-          Loreto,
-          Kanunga,
-          Stjoseph,
-          Muongoiya,
-          Professor,
-          PeterHinga,
-          Gacharage,
-          Gachie,
-          AckKihara,
-          Wangunyu,
-          Springboard,
-          StPetersBo,
-          Uthiru,
-          Fort,
-          Muthiga,
-          PceaRungiri,
         ]);
-
-        var Gathanga = L.marker([-1.182312, 36.791234]).bindPopup(
-            "Gathanga Dispensary."
-          ),
-          Karia = L.marker([-1.174213, 36.82123]).bindPopup(
-            "Karia Dispensary."
-          ),
-          Karura = L.marker([-1.22, 36.78]).bindPopup("Karura SDA Dispensary."),
-          Kihara = L.marker([-1.21091, 36.7386]).bindPopup(
-            "Kihara Health Centre."
-          ),
-          Little = L.marker([-1.192355, 36.771525]).bindPopup(
-            "Little Servant Of Sacret Heart Dispensary."
-          ),
-          Kikuyu = L.marker([-1.26667, 36.6667]).bindPopup(
-            "P.C.E.A. Kikuyu Hospital."
-          ),
-          Uthiru = L.marker([-1.2526, 36.7086]).bindPopup("Uthiru Dispensary."),
-          Wangige = L.marker([-1.21737, 36.7261]).bindPopup(
-            "Wangige Health Centre."
-          ),
-          Ongata = L.marker([-1.40735, 36.7514]).bindPopup(
-            "Ongata Rongai Health Centre."
-          );
-
-        var health = L.layerGroup([
-          Gathanga,
-          Karia,
-          Karura,
-          Kihara,
-          Little,
-          Kikuyu,
-          Uthiru,
-          Wangige,
-          Ongata,
-        ]);
-
-        var hospitalsdata = L.layerGroup(
+        
+        //load hospitals
+        var hospitalsdata = (
           $.ajax({
             url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiHealthFacilities&outputFormat=json`,
             dataType: "json",
-            success: console.log("loaded"), 
+            success: console.log("hospitals loaded"), 
           })
         );
 
-        //this functions waits for the data to be loaded and displays it on a map
-          $.when(hospitalsdata).done((data) => {
-            let layer = L.geoJSON(data, {
-            });
-            layerControl.addOverlay(layer, "Hospitals");
+        //this functions waits for hospitals to be loaded and displays it on a map
+        $.when(hospitalsdata).done((data) => {
+            let hospitals = L.geoJSON(data, {
+            })
+            layerControl.addOverlay(hospitals, "Health Facilities");
+          });
+
+         //load schools
+        var schoolsdata = (
+          $.ajax({
+            url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiSecScls&outputFormat=json`,
+            dataType: "json",
+            success: console.log("schools loaded"), 
           })
+        );
+
+        //this functions waits for schools to be loaded and displays it on a map
+        $.when(schoolsdata).done((data) => {
+            let schools = L.geoJSON(data, {
+            })
+            layerControl.addOverlay(schools, "Schools");
+          });
+
+        //load settlements
+        var settlementsdata = (
+          $.ajax({
+            url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiSettlement&outputFormat=json`,
+            dataType: "json",
+            success: console.log("settlements loaded"), 
+          })
+        );
+
+        //this functions waits for settlements to be loaded and displays it on a map
+        $.when(settlementsdata).done((data) => {
+            let settlements = L.geoJSON(data, {
+            })
+            layerControl.addOverlay(settlements, "Settlements");
+          });
+
+        //load constituencies
+        var consituenciesdata = (
+          $.ajax({
+            url: `http://demo.osl.co.ke/geoserver/WebMap/wfs?request=GetFeature&version=1.0.0&typeName=NairobiConstituencies&outputFormat=json`,
+            dataType: "json",
+            success: console.log("constituencies loaded"), 
+          })
+        );
+
+        //this functions waits for constituencies to be loaded and displays it on a map
+        $.when(consituenciesdata).done((data) => {
+            let constituencies = L.geoJSON(data, {
+            })
+            layerControl.addOverlay(constituencies, "Constituencies");
+          });
+        
+
+        //GROUP BASEMAP AND FIRST LAYER TO MAP
 
         var map = L.map("map", {
           center: [-1.2921, 36.8219],
           zoom: 10,
-          layers: [osm, schools],
+          layers: [osm, specialschools],
         });
+        
+
+        
 
         var baseMaps = {
           OpenStreetMap: osm,
         };
 
         var overlayMaps = {
-          Schools: schools,
+          "Special Schools": specialschools,
         };
 
         var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
-
-        layerControl.addOverlay(settlements, "Settlements");
-        // layerControl.addOverlay(schools, "Schools");
-        layerControl.addOverlay(health, "Health Facilities");
         
-
-        //style your data
-        let RoadStyle = {
-          color: "red",
-          weight: 2,
-          opacity: 0.65,
-        };
-        displayData("WebMap:NairobiCountyMajorRoads", RoadStyle);
-
-        //style for polygon data
-        let PolygonStyle = {
-          color: "black",
-          weight: 5,
-          opacity: 1,
-          fillOpacity: 0,
-        };
-        let ConstituencyStyle = {
-          color: "brown",
-          weight: 5,
-          opacity: 1,
-          fillOpacity: 0,
-        };
-        displayData("WebMap:NairobiCounty", PolygonStyle);
-        displayData("", ConstituencyStyle);
-
-        //style for point data
-        let PointStyle = {
-          radius: 8,
-          fillColor: "#ff7800",
-          color: "#000",
-          weight: 1,
-          opacity: 1,
-          fillOpacity: 0.8,
-        };
-
-        displayData("", PointStyle);
-        // //load vector data from geoserver
-
-        // //DO NOT MODIFY THIS FUNCTION
-        // // a function that waits for the data to be fetched and displays it on the map
-        function displayPointData(layername, style) {
-          //this functions waits for the data to be loaded and displays it on a map
-          $.when(addWFSLayer(layername)).done((data) => {
-            let layer = L.geoJSON(data, {
-              pointToLayer: function (feature, latlng) {
-                return L.circleMarker(data, style);
-              },
-            }).addTo(map);
-            //fits the map to layer
-            map.fitBounds(layer.getBounds());
-          });
-        }
-
-        // //DO NOT MODIFY THIS FUNCTION
-        // // a function that waits for the data to be fetched and displays it on the map
-        function displayData(layername, style) {
-          //this functions waits for the data to be loaded and displays it on a map
-          $.when(addWFSLayer(layername)).done((data) => {
-            let layer = L.geoJSON(data, {
-              style: style,
-            }).addTo(map);
-            //fits the map to layer
-            map.fitBounds(layer.getBounds());
-          });
-        }
-        // //DO NOT MODIFY THIS FUNCTION
-        // //a function that fetches data from geoserver
-        async function addWFSLayer(typename) {
-          var response = await $.ajax({
-            url: `http://demo.osl.co.ke/geoserver/${
-              typename.split(":")[0]
-            }/wfs?request=GetFeature&version=1.0.0&typeName=${typename}&outputFormat=json`,
-            dataType: "json",
-            success: console.log(
-              `${typename.split(":")[1]} loaded succesfully`
-            ),
-            error: function (xhr) {
-              console.log(xhr);
-            },
-          });
-          return response;
-        }
       </script>
     </div>
   </body>
